@@ -9,6 +9,13 @@ function copyDir() {
   fs.mkdir(dirPathOut, { recursive: true }, (err) => {
     if (err) throw err;
   });
+  readdir(dirPathOut, { withFileTypes: true }).then((files) =>
+    files.forEach((file) => {
+      fs.unlink(path.join(__dirname, 'files-copy', file.name), (err) => {
+        if (err) throw err;
+      });
+    })
+  );
   readdir(dirPathIn, { withFileTypes: true }).then((files) =>
     files.forEach((file) => {
       if (file.isFile()) {
