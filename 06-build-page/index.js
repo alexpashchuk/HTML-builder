@@ -27,7 +27,7 @@ async function createPage() {
     if (file.isFile() && path.extname(path.join(__dirname, 'components', file.name)) === '.html') {
       let htmlFile = await readFile(path.join(__dirname, 'components', file.name), 'utf-8');
       const tagHtml = `{{${file.name.split('.')[0]}}}`;
-      htmlTemplate = htmlTemplate.replace(tagHtml, htmlFile);
+      htmlTemplate = htmlTemplate.replaceAll(tagHtml, htmlFile);
     }
   }
   await writeFile(path.join(__dirname, 'project-dist/index.html'), htmlTemplate);
